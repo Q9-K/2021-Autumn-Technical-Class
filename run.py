@@ -93,7 +93,8 @@ class ImageViewer(QWidget):
 class MainWindow(QWidget):
     def __init__(self, parent=None):
         super().__init__(parent)
-        self.fn = None       
+        self.fn_1 = None 
+        self.fn_2 = None      
         self.setWindowTitle('异常检测')
 
         hblayout = QHBoxLayout()
@@ -124,20 +125,20 @@ class MainWindow(QWidget):
 
     def open(self):
         # fn = QFileDialog.getOpenFileName(self, 'Open file', 'c:\\',"Image files (*.jpg *.gif)")
-        self.fn = QFileDialog.getOpenFileName(self, 'Open file', 'c:\\',"Image files (*.jpg *.png)")
+        self.fn_1 = QFileDialog.getOpenFileName(self, 'Open file', 'c:\\',"Image files (*.jpg *.png)")
         # self.filepath = self.fn
-        if len(self.fn[0]) > 0:
-            self.image_viewer.setPixmap(QPixmap(self.fn[0]))
+        if len(self.fn_1[0]) > 0:
+            self.image_viewer.setPixmap(QPixmap(self.fn_1[0]))
 
     def save(self):#这里我没查getsavefilename的具体参数的要求，大概试了一下应该没问题
         fd, type = QFileDialog.getSaveFileName(self.image_viewer, "保存图片", "", "*.png")
-        QImage(self.fn).save(fd)
+        QImage(self.fn_2).save(fd)
 
     def detect(self):
-        self.maindetect.openpath = self.fn[0]
+        self.maindetect.openpath = self.fn_1[0]
         self.maindetect.detect_main()
-        self.fn = 'temp.png'
-        self.image_viewer.setPixmap(QPixmap(self.fn))
+        self.fn_2 = 'temp.png'
+        self.image_viewer.setPixmap(QPixmap(self.fn_2))
         self.update()
         
 if  __name__ == '__main__':
